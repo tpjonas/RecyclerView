@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 
 import cimdata.android.dez2017.recyclerview.R;
 import cimdata.android.dez2017.recyclerview.adapter.ListViewAdapter;
+import cimdata.android.dez2017.recyclerview.models.AnimalImage;
+import cimdata.android.dez2017.recyclerview.services.DataService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,12 +42,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void installRecyclerView() {
 
+        // Die Daten holen
+        AnimalImage[] data = DataService.animalImages;
+
         // Hier steuern wir wie die Daten dargestellt werden sollen
         // völlig unabhängig von den Werten
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        //RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
 
         // Hier binden wir die Daten an die ListView
-        RecyclerView.Adapter<ListViewAdapter.ListViewHolder> adapter = new ListViewAdapter();
+        RecyclerView.Adapter<ListViewAdapter.ListViewHolder> adapter = new ListViewAdapter(
+                this,
+                data
+        );
 
         listView = findViewById(R.id.rcy_acmain_list);
 
